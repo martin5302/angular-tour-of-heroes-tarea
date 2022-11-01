@@ -7,6 +7,7 @@ import { HeroService } from '../hero.service';
   templateUrl: './dashboard.component.html',
   styleUrls: [ './dashboard.component.css' ]
 })
+
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
 
@@ -16,8 +17,15 @@ export class DashboardComponent implements OnInit {
     this.getHeroes();
   }
 
+  //Funcion a modficar para cambiar el orden del dashboard
   getHeroes(): void {
     this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
+      //Antiguo metodo
+      // .subscribe(heroes => this.heroes = heroes.slice(0, 3));
+
+      //Metodo para ordenar por nombre
+      // .subscribe(heroes => this.heroes = heroes.sort((a,b) => a.name.localeCompare(b.name)));
+      .subscribe(heroes => this.heroes = heroes.sort((a,b) => b.points - a.points));
+      // product = product.sort((a, b) => a.PendingQuantity - b.PendingQuantity);
   }
 }
